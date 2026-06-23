@@ -1,0 +1,81 @@
+import type { Review } from "../types/review.types";
+
+export const reviews: Review[] = [
+  {
+    id: "rv1",
+    roomId: "room-001",
+    guestName: "Aarav Mehta",
+    rating: 5,
+    createdAt: new Date("2026-04-12"),
+    title: "Great value stay",
+    comment:
+      "Clean room, comfortable bed and the city view was a nice touch. Staff were attentive throughout our stay.",
+    stayType: "Business",
+  },
+  {
+    id: "rv2",
+    roomId: "room-001",
+    guestName: "Priya Shah",
+    rating: 4,
+    createdAt: new Date("2026-03-02"),
+    comment: "Good room for the price. Wi-Fi was fast and reliable, would book again.",
+    stayType: "Leisure",
+  },
+  {
+    id: "rv3",
+    roomId: "room-002",
+    guestName: "Rohan Kapoor",
+    rating: 5,
+    createdAt: new Date("2026-05-01"),
+    title: "Perfect for two",
+    comment:
+      "Loved the twin bed setup and the breakfast included was a great bonus.",
+    stayType: "Friends",
+  },
+  {
+    id: "rv4",
+    roomId: "room-003",
+    guestName: "Sana Iyer",
+    rating: 5,
+    createdAt: new Date("2026-02-18"),
+    title: "Executive lounge is fantastic",
+    comment:
+      "Lounge access made this stay feel premium. Evening cocktails were a lovely touch after meetings.",
+    stayType: "Business",
+  },
+  {
+    id: "rv5",
+    roomId: "room-004",
+    guestName: "Vikram Nair",
+    rating: 5,
+    createdAt: new Date("2026-01-22"),
+    title: "Anniversary stay",
+    comment:
+      "The suite exceeded expectations — the bathtub and panoramic view made our anniversary memorable.",
+    stayType: "Couple",
+  },
+  {
+    id: "rv6",
+    roomId: "room-005",
+    guestName: "Neha Joshi",
+    rating: 4,
+    createdAt: new Date("2026-04-29"),
+    comment:
+      "Simple, clean and good value. The garden view was a pleasant surprise for a budget room.",
+    stayType: "Solo",
+  },
+  {
+    id: "rv7",
+    roomId: "room-006",
+    guestName: "Karan Verma",
+    rating: 5,
+    createdAt: new Date("2026-03-15"),
+    title: "Loved the rain shower",
+    comment:
+      "Room was spacious and the Marine Drive view at night is unbeatable. Will return.",
+    stayType: "Leisure",
+  },
+];
+
+export const getReviewsByRoomId = (roomId: string) =>
+  reviews.filter((r) => r.roomId === roomId);

@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-background text-primary-text font-sans antialiased;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  h1, h2, h3, h4, h5, h6 { @apply font-semibold text-primary-text leading-tight; }
+  a { @apply text-primary-text no-underline; }
+  img { @apply max-w-full h-auto; }
+  button { @apply cursor-pointer; }
+  input, select, textarea { @apply font-sans; }
+}
+
+@layer components {
+  .container-base { @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
+  .section-padding { @apply py-12 md:py-16 lg:py-20; }
+  .focus-ring { @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2; }
+}
