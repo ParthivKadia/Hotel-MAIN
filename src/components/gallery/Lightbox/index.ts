@@ -1,1 +1,1 @@
-export { default as Lightbox } from "./Lightbox";
+export { Lightbox } from "./Lightbox";

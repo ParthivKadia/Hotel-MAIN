@@ -1,1 +1,1 @@
-export { default as GalleryFilter } from "./GalleryFilter";
+export { GalleryFilter } from "./GalleryFilter";

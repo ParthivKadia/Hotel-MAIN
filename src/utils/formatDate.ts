@@ -1,32 +1,21 @@
-export const formatDate = (date: Date): string => {
-  return new Intl.DateTimeFormat("en-IN", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  }).format(date);
-};
-
-export const formatDateShort = (date: Date): string => {
-  return new Intl.DateTimeFormat("en-IN", {
-    day: "numeric",
-    month: "short",
-  }).format(date);
-};
-
-export const formatDateInput = (date: Date): string => {
+export const toDateInputValue = (date: Date | null): string => {
+  if (!date) return "";
   return date.toISOString().split("T")[0];
 };
 
-export const getNights = (checkIn: Date, checkOut: Date): number => {
-  const diff = checkOut.getTime() - checkIn.getTime();
-  return Math.ceil(diff / (1000 * 60 * 60 * 24));
+export const fromDateInputValue = (value: string): Date | null => {
+  if (!value) return null;
+  const [year, month, day] = value.split("-").map(Number);
+  return new Date(year, month - 1, day);
 };
 
-export const addDays = (date: Date, days: number): Date => {
-  const result = new Date(date);
-  result.setDate(result.getDate() + days);
-  return result;
+export const getNightsBetweenDates = (checkIn: Date | null, checkOut: Date | null): number => {
+  if (!checkIn || !checkOut) return 0;
+  const diff = Math.round((checkOut.getTime() - checkIn.getTime()) / (1000 * 60 * 60 * 24));
+  return diff > 0 ? diff : 0;
 };
 
-export const getTomorrow = (): Date => addDays(new Date(), 1);
-export const getDayAfterTomorrow = (): Date => addDays(new Date(), 2);
+export const formatDisplayDate = (date: Date | null): string => {
+  if (!date) return "—";
+  return date.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
+};

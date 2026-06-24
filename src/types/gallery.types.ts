@@ -1,10 +1,9 @@
-export type GalleryCategory = "rooms" | "dining" | "amenities" | "exterior" | "events" | "all";
+export type GalleryCategory = "all" | "exterior" | "rooms" | "amenities" | "dining" | "events";
 
 export interface GalleryImage {
   id: string;
   url: string;
-  thumbnailUrl?: string;
   alt: string;
-  category: GalleryCategory;
-  caption?: string;
+  category: Exclude<GalleryCategory, "all">;
+  caption: string;
 }

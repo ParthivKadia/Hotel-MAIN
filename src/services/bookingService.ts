@@ -1,55 +1,68 @@
-import type { Booking, GuestInfo, AvailabilitySearch } from "../types/booking.types";
-import { calculatePrice } from "../utils/calculatePrice";
-import { generateConfirmationNumber } from "../utils/helpers";
-import { getNights } from "../utils/formatDate";
+import type { Booking, BookingStatus, PaymentStatus, PaymentMethod, GuestInfo } from "../types/booking.types";
 
-export const bookingService = {
-  createBooking: async (
-    roomId: string,
-    pricePerNight: number,
-    search: AvailabilitySearch,
-    guestInfo: GuestInfo,
-    discountAmount = 0,
-    couponCode?: string
-  ): Promise<Booking> => {
-    if (!search.checkIn || !search.checkOut) {
-      throw new Error("Check-in and check-out dates are required.");
-    }
+export const VALID_COUPONS: Record<string, number> = {
+  WELCOME10: 10,
+  SAVE15: 15,
+  RAJMAHAL20: 20,
+};
 
-    const nights = getNights(search.checkIn, search.checkOut);
-    const priceBreakdown = calculatePrice(pricePerNight, nights, discountAmount);
+export const validateCoupon = async (
+  code: string
+): Promise<{ valid: boolean; discountPercent: number; message: string }> => {
+  await new Promise((resolve) => setTimeout(resolve, 500));
+  const normalized = code.trim().toUpperCase();
+  const discount = VALID_COUPONS[normalized];
+  if (!discount) {
+    return { valid: false, discountPercent: 0, message: "Invalid or expired coupon code." };
+  }
+  return { valid: true, discountPercent: discount, message: `Coupon applied — ${discount}% off your stay.` };
+};
 
-    const booking: Booking = {
-      id: crypto.randomUUID(),
-      roomId,
-      guestInfo,
-      checkIn: search.checkIn,
-      checkOut: search.checkOut,
-      nights,
-      guests: search.guests,
-      pricePerNight,
-      totalPrice: priceBreakdown.subtotal,
-      taxAmount: priceBreakdown.taxAmount,
-      discountAmount: priceBreakdown.discountAmount,
-      finalAmount: priceBreakdown.totalAmount,
-      status: "confirmed",
-      paymentStatus: "paid",
-      couponCode,
-      createdAt: new Date(),
-      confirmationNumber: generateConfirmationNumber(),
-    };
+export interface BookingSubmission {
+  roomId: string;
+  guestInfo: GuestInfo;
+  checkIn: Date;
+  checkOut: Date;
+  nights: number;
+  guests: number;
+  pricePerNight: number;
+  totalPrice: number;
+  taxAmount: number;
+  discountAmount: number;
+  finalAmount: number;
+  paymentMethod: PaymentMethod;
+  couponCode?: string;
+}
 
-    return booking;
-  },
+const generateConfirmationNumber = () => `RM${Date.now().toString().slice(-8)}`;
+const generateBookingId = () => `bk-${Math.random().toString(36).slice(2, 10)}`;
 
-  validateCoupon: async (
-    code: string
-  ): Promise<{ valid: boolean; discountAmount: number }> => {
-    const validCoupons: Record<string, number> = {
-      WELCOME10: 500,
-      STAY20: 1000,
-    };
-    const discount = validCoupons[code.toUpperCase()];
-    return { valid: !!discount, discountAmount: discount ?? 0 };
-  },
+export const submitBooking = async (payload: BookingSubmission): Promise<Booking> => {
+  await new Promise((resolve) => setTimeout(resolve, 900));
+
+  const status: BookingStatus = "confirmed";
+  const paymentStatus: PaymentStatus = "paid";
+
+  const booking: Booking = {
+    id: generateBookingId(),
+    roomId: payload.roomId,
+    guestInfo: payload.guestInfo,
+    checkIn: payload.checkIn,
+    checkOut: payload.checkOut,
+    nights: payload.nights,
+    guests: payload.guests,
+    pricePerNight: payload.pricePerNight,
+    totalPrice: payload.totalPrice,
+    taxAmount: payload.taxAmount,
+    discountAmount: payload.discountAmount,
+    finalAmount: payload.finalAmount,
+    status,
+    paymentStatus,
+    paymentMethod: payload.paymentMethod,
+    couponCode: payload.couponCode,
+    createdAt: new Date(),
+    confirmationNumber: generateConfirmationNumber(),
+  };
+
+  return booking;
 };

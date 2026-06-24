@@ -130,8 +130,8 @@ const previewImages = [
   { src: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80", alt: "Hotel Exterior", label: "Exterior", span: "col-span-2 row-span-2" },
   { src: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80", alt: "Deluxe Room", label: "Rooms", span: "" },
   { src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80", alt: "Restaurant", label: "Restaurant", span: "" },
-  { src: "https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=600&q=80", alt: "Swimming Pool", label: "Pool", span: "" },
-  { src: "https://images.unsplash.com/photo-1545579133-99bb5ad189be?w=600&q=80", alt: "Fitness Center", label: "Gym", span: "" },
+  { src: "https://images.unsplash.com/photo-1509600110300-21b9d5fedeb7?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", alt: "Swimming Pool", label: "Pool", span: "" },
+  { src: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80", alt: "Fitness Center", label: "Gym", span: "" },
   { src: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=600&q=80", alt: "Conference Room", label: "Conference", span: "" },
 ];
 
