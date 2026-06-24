@@ -33,28 +33,32 @@ export const RoomReviews: React.FC<RoomReviewsProps> = ({ reviews, rating, revie
       <p className="text-sm text-secondary-text">No reviews yet for this room.</p>
     ) : (
       <div className="space-y-5">
-        {reviews.map((r) => (
-          <div key={r.id} className="border border-border rounded-lg p-4">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-section-bg flex items-center justify-center text-xs font-semibold text-primary-text">
-                  {r.guestName.charAt(0)}
+        {reviews.map((r) => {
+          const displayName = r.guestName ?? r.authorName;
+          const displayComment = r.comment ?? r.content;
+          return (
+            <div key={r.id} className="border border-border rounded-lg p-4">
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full bg-section-bg flex items-center justify-center text-xs font-semibold text-primary-text">
+                    {displayName.charAt(0)}
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-primary-text">{displayName}</p>
+                    {r.stayType && <p className="text-2xs text-secondary-text">{r.stayType} stay</p>}
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm font-medium text-primary-text">{r.guestName}</p>
-                  {r.stayType && <p className="text-2xs text-secondary-text">{r.stayType} stay</p>}
+                <div className="flex items-center gap-0.5">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <StarIcon key={i} filled={i < r.rating} />
+                  ))}
                 </div>
               </div>
-              <div className="flex items-center gap-0.5">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <StarIcon key={i} filled={i < r.rating} />
-                ))}
-              </div>
+              {r.title && <p className="text-sm font-semibold text-primary-text mb-1">{r.title}</p>}
+              <p className="text-sm text-secondary-text leading-relaxed">{displayComment}</p>
             </div>
-            {r.title && <p className="text-sm font-semibold text-primary-text mb-1">{r.title}</p>}
-            <p className="text-sm text-secondary-text leading-relaxed">{r.comment}</p>
-          </div>
-        ))}
+          );
+        })}
       </div>
     )}
   </div>
