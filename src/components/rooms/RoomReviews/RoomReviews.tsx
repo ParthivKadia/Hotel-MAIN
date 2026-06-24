@@ -34,7 +34,7 @@ export const RoomReviews: React.FC<RoomReviewsProps> = ({ reviews, rating, revie
     ) : (
       <div className="space-y-5">
         {reviews.map((r) => {
-          const displayName = r.guestName ?? r.authorName;
+const displayName = r.guestName || r.authorName;
           const displayComment = r.comment ?? r.content;
           return (
             <div key={r.id} className="border border-border rounded-lg p-4">
