@@ -7,16 +7,12 @@ import { galleryService } from "../../services/galleryService";
 import type { GalleryImage, GalleryCategory } from "../../types/gallery.types";
 
 const GalleryPage: React.FC = () => {
-  const [images, setImages] = useState<GalleryImage[]>([]);
   const [filtered, setFiltered] = useState<GalleryImage[]>([]);
   const [category, setCategory] = useState<GalleryCategory>("all");
   const [selected, setSelected] = useState<GalleryImage | null>(null);
 
   useEffect(() => {
-    galleryService.getAllImages().then((imgs) => {
-      setImages(imgs);
-      setFiltered(imgs);
-    });
+    galleryService.getAllImages().then(setFiltered);
   }, []);
 
   const handleCategoryChange = async (cat: GalleryCategory) => {
@@ -40,7 +36,6 @@ const GalleryPage: React.FC = () => {
   return (
     <PageContainer>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Header */}
         <div className="mb-8">
           <p className="text-xs font-medium tracking-[0.2em] uppercase text-primary mb-2">Photo Gallery</p>
           <h1 className="text-2xl md:text-3xl font-semibold text-primary-text">Explore Our Hotel</h1>
@@ -48,20 +43,13 @@ const GalleryPage: React.FC = () => {
             Browse through our collection of photos showcasing our rooms, amenities, dining, and more.
           </p>
         </div>
-
-        {/* Filter */}
         <div className="mb-8">
           <GalleryFilter active={category} onChange={handleCategoryChange} />
         </div>
-
-        {/* Count */}
         <p className="text-xs text-secondary-text mb-5">{filtered.length} photos</p>
-
-        {/* Grid */}
         <GalleryGrid images={filtered} onSelect={setSelected} />
       </div>
 
-      {/* Lightbox */}
       {selected && (
         <Lightbox
           image={selected}

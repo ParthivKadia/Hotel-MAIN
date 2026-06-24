@@ -85,16 +85,14 @@ export const RoomBookingSidebar: React.FC<RoomBookingSidebarProps> = ({ room }) 
         </div>
         <div className="flex justify-between text-sm font-semibold text-primary-text pt-2 border-t border-border">
           <span>Total</span>
-          <span>{formatCurrency(price.total)}</span>
+<span>{formatCurrency(price.totalAmount)}</span>
         </div>
       </div>
 
       <Link
         to={getBookingPath(room.id)}
         aria-disabled={!room.isAvailable}
-        onClick={(e) => {
-          if (!room.isAvailable) e.preventDefault();
-        }}
+        onClick={(e) => { if (!room.isAvailable) e.preventDefault(); }}
         className={clsx(
           "w-full block text-center font-semibold px-6 py-3 rounded-lg text-sm transition-colors duration-150",
           room.isAvailable ? "bg-primary hover:bg-primary-hover text-white" : "bg-gray-100 text-secondary-text cursor-not-allowed"
